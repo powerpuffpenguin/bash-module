@@ -6,6 +6,45 @@ source core.sh
 Import "core:strings.sh"
 strings="core_strings"
 Files="core_strings_Files"
+
+function test_strings.Ok
+{
+    echo "   - test_strings.Ok"
+    core_strings_Ok=0
+    if [[ $($strings.Ok) != 0 || $($strings.Ok) == 1 ]];then
+        echo Ok not false
+        return 1
+    fi
+
+    core_strings_Ok=1
+    if [[ $($strings.Ok) != 1 || $($strings.Ok) == 0 ]];then
+        echo Ok not true
+        return 1
+    fi
+}
+test_strings.Ok
+
+function test_strings.Strings
+{
+    echo "   - test_strings.Strings"
+    core_strings_Strings=(a b c)
+    local strs
+    $strings.Strings strs
+    for i in ${!core_strings_Strings[@]}
+    do
+        local s0=${core_strings_Strings[i]}
+        local s1=${strs[i]}
+        if [[ "$s0" != "$s1" ]];then
+            echo "s0 != s1"
+            echo "i=$i"
+            echo "s0=$s0"
+            echo "s1=$s1"
+            return 1
+        fi
+    done 
+}
+test_strings.Strings
+
 function test_strings.start_with
 {
     echo "   - test_strings.start_with"

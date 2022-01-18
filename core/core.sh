@@ -125,8 +125,6 @@ function Field
 }
 
 # echo to stderror
-#
-# func Copy(arrName0: string, arrName1: string)
 function Error
 {
     echo "$@" 1>&2

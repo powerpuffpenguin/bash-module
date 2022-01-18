@@ -1,6 +1,6 @@
 # lib
 
-* strings
+* [strings](strings.md)
 
 # core
 
@@ -8,11 +8,13 @@
 ```
 source core.sh
 ```
+
+函數列表：
 * [Import](#Import)
 * [Copy](#Copy)
 * [GetField](#GetField)
 * [SetField](#SetField)
-* Field
+* [Field](#Field)
 * [Error](#Error)
 * [ErrorStack](#ErrorStack)
 
@@ -43,8 +45,8 @@ Import core:strings.sh
 local a=(a b c)
 local b
 # 將 數組 a 拷貝到 數組 b
-Copy b a # b=${"a[@]"}
-# eval b=(\"\${a[@]}\")
+Copy b a # b=("${a[@]}")
+# eval b=("${a[@]}")
 ```
 
 # GetField
