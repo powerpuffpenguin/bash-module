@@ -12,12 +12,55 @@ function core_zoo_Cat.new
     core_zoo_Cat[core_zoo_Cat_name]="$1"
     core_zoo_Cat[core_zoo_Cat_level]="$2"
 }
-# get and set
-eval "`Class core_zoo_Cat`"
 
+# func (self Cat)speak()
 function core_zoo_Cat.speak
 {
-    echo -n "i'm ${core_zoo_Cat[core_zoo_Cat_name]}, a cat."
-    echo " my level is ${core_zoo_Cat[core_zoo_Cat_level]}."
+    if [[ "$1" == "" ]];then
+        Error "Error: call ${FUNCNAME[0]} missing self"
+        ErrorStack 1
+        return 1
+    fi
+    local self
+    Copy self "$1"
+    echo -n "i'm ${self[core_zoo_Cat_name]}, a cat."
+    echo " my level is ${self[core_zoo_Cat_level]}."
 }
-
+# func (self Cat)name(): string
+# func (self Cat)name(val: string)
+function core_zoo_Cat.name
+{
+    
+    case ${#@} in
+        0)
+            Error "Error: call ${FUNCNAME[0]} missing self"
+            ErrorStack 1
+            return 1
+        ;;
+        1) # get
+            Field "$1" $core_zoo_Cat_name 
+        ;;
+        *) # set
+            Field "$1" $core_zoo_Cat_name "$2"
+        ;;
+    esac
+}
+# func (self Cat)level(): number
+# func (self Cat)level(val: number)
+function core_zoo_Cat.level
+{
+    
+    case ${#@} in
+        0)
+            Error "Error: call ${FUNCNAME[0]} missing self"
+            ErrorStack 1
+            return 1
+        ;;
+        1) # get
+            Field "$1" $core_zoo_Cat_level
+        ;;
+        *) # set
+            Field "$1" $core_zoo_Cat_level "$2"
+        ;;
+    esac
+}

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -e
-source core/core.sh
+source core.sh
 
 function test_import
 {
@@ -10,13 +10,40 @@ function test_import
 
     if [[ "`$a.echo`" != "this is a" ]];then
         echo a.echo not equal
+        return 1
     fi
 
     if [[ "`$b.echo`" != "this is b" ]];then
         echo a.b.echo not equal
+        return 1
     fi
 }
 test_import
+
+function test_copy
+{
+    local a=(
+        "abc"
+        "def"
+    )
+    local b
+    Copy b a
+    if [[ ${#a} != ${#b} ]];then
+        echo' len(a) != len(b)'
+        return 1
+    fi
+    local i
+    for((i=0;i<${#a};i++))
+    do
+        if [[ "${a[i]}" != "${b[i]}" ]];then
+            echo "a[$i] != b[$i]"
+            echo "a[$i]=${a[i]}"
+            echo "b[$i]=${b[i]}"
+            return 1
+        fi
+    done
+}
+test_copy
 
 function test_zoo
 {
@@ -26,19 +53,47 @@ function test_zoo
     local Cat="core_zoo_Cat"
 
     # s0 = new Cat
+    local s0
     $Cat.new "ka te" 1
-    eval `$Cat.get "local s0"`
+    Copy s0 $Cat
 
     # s1 = new Cat
+    local s1
     $Cat.new anita 99
-    eval `$Cat.get "local s1"`
+    Copy s1 $Cat
 
     # s0.speak
-    eval `$Cat.set s0`
-    $Cat.speak
+    if [[ `$Cat.speak s0` != "i'm ka te, a cat. my level is 1." ]];then
+        echo '$Cat.speak s0 not match'
+        return 1
+    fi
 
     # s1.speak
-    eval `$Cat.set s1`
-    $Cat.speak
+    if [[ `$Cat.speak s1` != "i'm anita, a cat. my level is 99." ]];then
+        echo '$Cat.speak s1 not match'
+        return 1
+    fi
+
+    # clone
+    local a
+    Copy a s0
+    local name=`$Cat.name a`
+    if [[ $name != "ka te" ]];then
+        echo '$Cat.name get not match'
+        return 1
+    fi
+    $Cat.name a "ab cd"
+
+    local level=`$Cat.level a`
+    if [[ $level != 1 ]];then
+        echo '$Cat.level get not match'
+        return 1
+    fi
+    $Cat.level a 22
+
+    if [[ `$Cat.speak a` != "i'm ab cd, a cat. my level is 22." ]];then
+        echo '$Cat.speak s1 not match'
+        return 1
+    fi
 }
 test_zoo
