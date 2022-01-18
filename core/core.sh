@@ -22,10 +22,8 @@ function Import
     if [[ length > 5 && "${1::5}" == "core:"  ]];then
         local dir=$(cd $(dirname $BASH_SOURCE) && pwd)
         local path="$dir/lib/${1:5}"
-        if [ -f "$path" ];then
-            __ImportImpl "$path" "$1"
-            return $?
-        fi
+        __ImportImpl "$path" "$1"
+        return $?
     fi
     # local caller=`caller`
     # local str
@@ -100,7 +98,7 @@ function SetField
 {
     eval "$1[$2]=\"$3\""
 }
-# func Field(self: string, i: number, value?: any)
+# func Field(object: string, i: number, value?: any)
 function Field
 {
     case ${#@} in
