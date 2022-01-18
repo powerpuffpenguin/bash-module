@@ -190,3 +190,28 @@ function test_strings.join
     fi
 }
 test_strings.join
+
+function test_strings.trim
+{
+    echo "   - test_strings.trim"
+    local s0="xxabcdexx"
+
+    local s1=`$strings.trim_left "$s0" "x"`
+    if [[ "$s1" != "abcdexx" ]];then
+        echo trim_left not pass
+        return 1
+    fi
+
+    local s2=`$strings.trim_right "$s0" "x"`
+    if [[ "$s2" != "xxabcde" ]];then
+        echo trim_right not pass
+        return 1
+    fi
+   
+   local s3=`$strings.trim "$s0" "x"`
+   if [[ "$s3" != "abcde" ]];then
+        echo trim not pass
+        return 1
+    fi
+}
+test_strings.trim

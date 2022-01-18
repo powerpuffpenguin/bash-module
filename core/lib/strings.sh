@@ -7,7 +7,7 @@ __module_flag_of_core_strings=1
 
 
 core_strings_Ok=0
-# func start_with(str: string,sub: string): 1 or 0
+# func start_with(str: string, sub: string): 1 or 0
 # return to core_strings_Ok
 function core_strings.start_with
 {
@@ -25,7 +25,7 @@ function core_strings.start_with
         core_strings_Ok=0
     fi
 }
-# func start_with(str: string,sub: string): 1 or 0
+# func start_with(str: string, sub: string): 1 or 0
 # return to core_strings_Ok
 function core_strings.end_with
 {
@@ -45,7 +45,7 @@ function core_strings.end_with
 }
 
 core_strings_Strings=()
-# func start_with(str: string,separator: string=" "): []string
+# func start_with(str: string, separator: string=" "): []string
 # return to core_strings_Strings
 function core_strings.split
 {
@@ -71,7 +71,7 @@ function core_strings.split
         str=${str:length}
     done
 }
-# func join(arrname: string,separator: string=" "): string
+# func join(arrname: string, separator: string=" "): string
 function core_strings.join
 {
     Copy core_strings_Strings "$1"
@@ -90,4 +90,47 @@ function core_strings.join
     fi
    done
 }
-
+# func trim_left(str: string, sub: string)
+function core_strings.trim_left
+{
+    local str="$1"
+    local sep="$2"
+    if [[ "$sep" == "" ]];then
+        sep=" "
+    fi
+    while true
+    do
+        local sub=${str#$sep}
+        if [[ ${#sub} == ${#str} ]];then
+            echo -n "$sub"
+            break
+        else
+            str=$sub
+        fi
+    done
+}
+# func trim_right(str: string, sub: string)
+function core_strings.trim_right
+{
+    local str="$1"
+    local sep="$2"
+    if [[ "$sep" == "" ]];then
+        sep=" "
+    fi
+    while true
+    do
+        local sub=${str%$sep}
+        if [[ ${#sub} == ${#str} ]];then
+            echo -n "$sub"
+            break
+        else
+            str=$sub
+        fi
+    done
+}
+# func trim(str: string, sub: string)
+function core_strings.trim
+{
+    local str=`core_strings.trim_left "$1" "$2"`
+    core_strings.trim_right "$str" "$2"
+}
