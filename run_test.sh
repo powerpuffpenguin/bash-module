@@ -1,12 +1,22 @@
 #!/usr/bin/env bash
 
-# set -e
+set -e
 
 Dir=$(cd $(dirname $BASH_SOURCE) && pwd)
 export PATH="$Dir/core:$PATH"
 
-find "$Dir/test" -name "*_test.sh" -type f | 
-while read file
+dirs=(
+    "test"
+    "test/lib"
+)
+
+for dir in ${dirs[@]} 
 do
-    "$file"
+    find "$Dir/$dir" -maxdepth 1 -name "*_test.sh" -type f | 
+    while read file
+    do
+        "$file"
+    done
 done
+
+

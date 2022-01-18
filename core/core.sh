@@ -18,27 +18,42 @@ function Import
         ErrorStack 1
         return 1
     fi
-
-    local caller=`caller`
-    local str
-    while true
-    do
-        str=${caller#[0-9]}
-        if [[ "$str" == "$caller" ]];then
-            break
+    declare -i length=${#1}
+    if [[ length > 5 && "${1::5}" == "core:"  ]];then
+        local dir=$(cd $(dirname $BASH_SOURCE) && pwd)
+        local path="$dir/lib/${1:5}"
+        if [ -f "$path" ];then
+            __ImportImpl "$path" "$1"
+            return $?
         fi
-        caller=$str
-    done
-    local dir=$(cd $(dirname $caller) && pwd)
+    fi
+    # local caller=`caller`
+    # local str
+    # while true
+    # do
+    #     str=${caller#[0-9]}
+    #     if [[ "$str" == "$caller" ]];then
+    #         break
+    #     fi
+    #     caller=$str
+    # done
+    # local dir=$(cd $(dirname $caller) && pwd)
+    local dir=$(cd $(dirname ${BASH_SOURCE[1]}) && pwd)
+    __ImportImpl "$dir/$1" "$1"
+    return $?
+}
+
+function __ImportImpl
+{
     local ErrExit=0
     if [[ $- == *e* ]];then
         ErrExit=1
         set +e
     fi
-    source "$dir/$1"  1>&2
+    source "$1"  1>&2
     local result=$?
     if [[ $result != 0 ]];then
-        Error "Error: Import(\"$1\")"
+        Error "Error: Import(\"$2\")"
         ErrorStack 1
     fi
     if [[ "${ErrExit}" == 1 ]]; then

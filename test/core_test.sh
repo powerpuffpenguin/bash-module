@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 set -e
+echo " * $BASH_SOURCE"
 source core.sh
 
 function test_import
 {
+    echo "   - test_import"
     Import "core/a.sh"
     local a="a"
     local b="a_b"
@@ -22,6 +24,7 @@ test_import
 
 function test_copy
 {
+    echo "   - test_copy"
     local a=(
         "abc"
         "def"
@@ -47,6 +50,7 @@ test_copy
 
 function test_zoo
 {
+    echo "   - test_zoo"
     # import
     Import "core/zoo.sh"
     local zoo="core_zoo"

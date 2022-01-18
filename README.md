@@ -36,4 +36,31 @@ source core.sh
 
 ## 定義模塊
 
+1. 一個模塊存儲在一個檔案中，模塊中所有 方法 和 變量都應該有一個 統一的 prefix (例如有一個處理字符串的模塊 prefix 可以是固定爲 **stirngs** )
+2. 模塊提供的方法應該命名爲 prefix.XXX (例如 strings.start_with)
+3. 模塊提供的變量應該命名爲 prefix_XXX (例如 strings_Ok)
+
 ## 導入模塊
+
+core.sh 中提供了一個全局函數 `func Import(path: string)` 用於加載子模塊
+
+1. path 應該是相對當前腳本的相對路徑
+2. 有個例外是 以 **core:** 爲前綴的模塊會優先從 core.sh 所在檔案夾下的 lib 檔案夾中尋找子模塊如果沒有再以相對路徑加載
+
+```
+# 加載 strings.sh 模塊
+Import "core:strings.sh"
+
+# 定義一個變量簡化模塊方法調用
+strings="core_strings"
+
+# 調用模塊提供的函數
+$strings.start_with "abcdef" "abc"
+
+# 處理函數返回值
+if [[ $core_strings_Ok == 1 ]];then 
+    echo yes
+else
+    echo no
+fi
+```
