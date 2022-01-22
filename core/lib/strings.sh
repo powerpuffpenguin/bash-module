@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# document https://github.com/powerpuffpenguin/bash_module/blob/main/document/strings.md
 
 if [[ "$__module_flag_of_core_strings" == 1 ]];then
     return 0
