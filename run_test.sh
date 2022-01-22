@@ -19,4 +19,4 @@ do
     done
 done
 
-
+"$Dir/test/lib/colors.sh"

@@ -1,6 +1,7 @@
 # lib
 
 * [strings](strings.md)
+* [colors](colors.md)
 
 # core
 

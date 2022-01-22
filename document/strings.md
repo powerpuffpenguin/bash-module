@@ -2,6 +2,8 @@
 
 [api](README.md)
 
+常見的字符串處理
+
 導入代碼
 ```
 Import "core:strings.sh"
