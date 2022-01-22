@@ -16,8 +16,8 @@ fi
 Output=$(cd "$1" && pwd)
 
 echo cp "core/core.sh" "$Output/core.sh"
-cp "$Dir/core/core.sh" "$1/core.sh"
-echo cp "core/lib" "$1/lib" -r
-cp "$Dir/core/lib" "$1/lib" -r
+cp "$Dir/core/core.sh" "$Output/core.sh"
+echo cp "core/lib" "$Output" -r
+cp "$Dir/core/lib" "$Output" -r
 
 echo -e "\e[32minstall success\e[0m"
