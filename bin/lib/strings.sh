@@ -53,7 +53,7 @@ function core_strings.end_with
 core_strings_Strings=()
 function core_strings.Strings
 {
-    Copy "$1" core_strings_Strings
+    core.copy "$1" core_strings_Strings
 }
 
 # func split(str: string, separator: string=" "): []string
@@ -85,7 +85,7 @@ function core_strings.split
 # func join(arrname: string, separator: string=" "): string
 function core_strings.join
 {
-    Copy core_strings_Strings "$1"
+    core.copy core_strings_Strings "$1"
     local result=$?
     if [[ "$result" != 0 ]];then
         return $result

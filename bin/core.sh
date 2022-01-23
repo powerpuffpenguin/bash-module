@@ -6,25 +6,25 @@ if [[ "$__module_flag_of_core" == 1 ]];then
 fi
 __module_flag_of_core=1
 
-Core_Version="v1.0.0"
+core_Version="v0.0.1"
 
 # import a module
 #
-# func Import(path: string)
+# func import(path: string)
 #
 # path should be a relative path to the current script
-function Import
+function core.import
 {
     if [[ "$1" == "" ]];then
-        Error "Error: Import(\"\")"
-        ErrorStack 1
+        core.error "Error: import(\"\")"
+        core.error_stack 1
         return 1
     fi
     declare -i length=${#1}
     if [[ length > 5 && "${1::5}" == "core:"  ]];then
         local dir=$(cd $(dirname $BASH_SOURCE) && pwd)
         local path="$dir/lib/${1:5}"
-        __ImportImpl "$path" "$1"
+        core._import "$path" "$1"
         return $?
     fi
     # local caller=`caller`
@@ -39,11 +39,10 @@ function Import
     # done
     # local dir=$(cd $(dirname $caller) && pwd)
     local dir=$(cd $(dirname ${BASH_SOURCE[1]}) && pwd)
-    __ImportImpl "$dir/$1" "$1"
+    core._import "$dir/$1" "$1"
     return $?
 }
-
-function __ImportImpl
+function core._import
 {
     local ErrExit=0
     if [[ $- == *e* ]];then
@@ -53,8 +52,8 @@ function __ImportImpl
     source "$1"  1>&2
     local result=$?
     if [[ $result != 0 ]];then
-        Error "Error: Import(\"$2\")"
-        ErrorStack 1
+        core.error "Error: import(\"$2\")"
+        core.error_stack 1
     fi
     if [[ "${ErrExit}" == 1 ]]; then
         set -e
@@ -64,8 +63,8 @@ function __ImportImpl
 
 # copy array, set arr0=arr1
 #
-# func Copy(arrName0: string, arrName1: string)
-function Copy
+# func copy(arrName0: string, arrName1: string)
+function core.copy
 {
     if [[ "$1" == "" || "$2" == "" ]];then
         Error "Error: Copy($1, $2)"
@@ -90,49 +89,49 @@ function Copy
     return $result
 }
 
-# func GetField(object: string, i: number)
-function GetField
+# func get_field(object: string, i: number)
+function core.get_field
 {
     eval "echo \${$1[$2]}"
 }
-# func SetField(object: string, i: number, value: any)
-function SetField
+# func set_field(object: string, i: number, value: any)
+function core.set_field
 {
     eval "$1[$2]=\"$3\""
 }
-# func Field(object: string, i: number, value?: any)
-function Field
+# func field(object: string, i: number, value?: any)
+function core.field
 {
     case ${#@} in
         0|1)
-            Error "Error: call ${FUNCNAME[1]} missing self"
-            ErrorStack 2
+            core.error "Error: call ${FUNCNAME[1]} missing self"
+            core.error_stack 2
             return 1
         ;;
         2) # get
-            GetField "$1" "$2"
+            core.get_field "$1" "$2"
             if [[ $? != 0 ]];then
-                Error "Error: call ${FUNCNAME[1]} has an error"
-                ErrorStack 2
+                core.error "Error: call ${FUNCNAME[1]} has an error"
+                core.error_stack 2
             fi
         ;;
         *)
-            SetField "$1" $2 "$3"
+            core.set_field "$1" $2 "$3"
             if [[ $? != 0 ]];then
-                Error "Error: call ${FUNCNAME[1]} has an error"
-                ErrorStack 2
+                core.error "Error: call ${FUNCNAME[1]} has an error"
+                core.error_stack 2
             fi
         ;;
     esac
 }
 
 # echo to stderror
-function Error
+function core.error
 {
     echo "$@" 1>&2
 }
 # echo stack to stderror
-function ErrorStack
+function core.error_stack
 {
     declare -i i=1
     if [[ $1 > 0 ]];then

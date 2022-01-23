@@ -22,7 +22,7 @@ function core_zoo_Cat.speak
         return 1
     fi
     local self
-    Copy self "$1"
+    core.copy self "$1"
     echo -n "i'm ${self[core_zoo_Cat_name]}, a cat."
     echo " my level is ${self[core_zoo_Cat_level]}."
 }
@@ -33,15 +33,15 @@ function core_zoo_Cat.name
     
     case ${#@} in
         0)
-            Error "Error: call ${FUNCNAME[0]} missing self"
-            ErrorStack 1
+            core.error "Error: call ${FUNCNAME[0]} missing self"
+            core.error_stack 1
             return 1
         ;;
         1) # get
-            Field "$1" $core_zoo_Cat_name 
+            core.field "$1" $core_zoo_Cat_name 
         ;;
         *) # set
-            Field "$1" $core_zoo_Cat_name "$2"
+            core.field "$1" $core_zoo_Cat_name "$2"
         ;;
     esac
 }
@@ -52,15 +52,15 @@ function core_zoo_Cat.level
     
     case ${#@} in
         0)
-            Error "Error: call ${FUNCNAME[0]} missing self"
-            ErrorStack 1
+            core.error "Error: call ${FUNCNAME[0]} missing self"
+            core.error_stack 1
             return 1
         ;;
         1) # get
-            Field "$1" $core_zoo_Cat_level
+            core.field "$1" $core_zoo_Cat_level
         ;;
         *) # set
-            Field "$1" $core_zoo_Cat_level "$2"
+            core.field "$1" $core_zoo_Cat_level "$2"
         ;;
     esac
 }

@@ -3,7 +3,7 @@ set -e
 echo " * $BASH_SOURCE"
 source core.sh
 
-Import "core:strings.sh"
+core.import "core:strings.sh"
 strings="core_strings"
 Files="core_strings_Files"
 

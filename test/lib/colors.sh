@@ -3,7 +3,7 @@ set -e
 echo " * $BASH_SOURCE"
 source core.sh
 
-Import "core:colors.sh"
+core.import "core:colors.sh"
 colors="core_colors"
 
 function test_colors
