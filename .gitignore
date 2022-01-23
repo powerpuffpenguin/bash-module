@@ -1,0 +1,19 @@
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+/vendor/
+*.gz
+*.bz
+*.bz2
+*.xz
+*.7z
+*.zip
+*.db
+*.log
+*.sha256

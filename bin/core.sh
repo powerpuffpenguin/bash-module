@@ -6,6 +6,7 @@ if [[ "$__module_flag_of_core" == 1 ]];then
 fi
 __module_flag_of_core=1
 
+Core_Version="v1.0.0"
 
 # import a module
 #

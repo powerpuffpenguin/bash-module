@@ -203,7 +203,14 @@ function test_strings.find_files
     local s0=${core_strings_Strings[0]}
     local s1=${core_strings_Strings[1]}
 
+
     $strings.end_with "$s0" "/a b.ff"
+    if [[ $core_strings_Ok == 0 ]];then
+        local tmp=$s0
+        s0=$s1
+        s1=$tmp
+        $strings.end_with "$s0" "/a b.ff"
+    fi
     if [[ $core_strings_Ok == 0 ]];then
         echo "not found a b.ff"
         return 1
