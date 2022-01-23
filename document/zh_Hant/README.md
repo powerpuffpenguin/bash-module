@@ -10,6 +10,11 @@
 source core.sh
 ```
 
+名稱前綴：
+```
+core
+```
+
 函數列表：
 * [Import](#Import)
 * [Copy](#Copy)
@@ -24,15 +29,15 @@ source core.sh
 Import 函數用於導入一個模塊
 
 ```
-Import a.sh
-Import core:strings.sh
+core.Import a.sh
+core.Import core:strings.sh
 ```
 
-所有以 **core:** 爲前綴的模塊會從 core.sh 所在的路徑下的 lib 檔案夾中查找，所有非此前綴的將以相對與調用 Import 函數所在腳本的相對路徑查找
+所有以 **core:** 爲前綴的模塊會從 core.sh 所在的路徑下的 core.libs 檔案夾中查找，所有非此前綴的將以相對與調用 Import 函數所在腳本的相對路徑查找
 
 比如上述腳本存儲在 **~/project/bash/main.sh** 中，**core.sh** 存儲在 **/usr/local/bin/core.sh**則：
-* `Import a.sh` 將加載 **~/project/bash/a.sh**
-* `Import core:strings.sh` 將加載 **/usr/local/bin/lib/strings.sh**
+* `core.Import a.sh` 將加載 **~/project/bash/a.sh**
+* `core.Import core:strings.sh` 將加載 **/usr/local/bin/core.libs/strings.sh**
 
 這樣設計的目的在於，同一個庫的實現者可以方便的使用相對路徑加載本庫中的代碼。
 
@@ -46,7 +51,7 @@ Import core:strings.sh
 local a=(a b c)
 local b
 # 將 數組 a 拷貝到 數組 b
-Copy b a # b=("${a[@]}")
+core.Copy b a # b=("${a[@]}")
 # eval b=("${a[@]}")
 ```
 
@@ -112,13 +117,13 @@ Error 實際上是 `echo "$@" 1>&2` 的語法糖，使用方法和 echo 一樣�
 bash 中的函數如果要返回字符串需要使用 stdout，所以最好將錯誤輸出到 stderror 這樣就避免的 錯誤輸出 和 返回輸出 都交錯在 stdout 中
 
 ```
-Error "Error: an error occurred"
+core.Error "Error: an error occurred"
 ```
 # ErrorStack
 
 ErrorStack 將當前的調用棧打印到 stderror，此外 ErrorStack 的第一個參數可以指定要跳過多少層棧信息 
 
 ```
-ErrorStack
-ErrorStack 1
+core.ErrorStack
+core.ErrorStack 1
 ```

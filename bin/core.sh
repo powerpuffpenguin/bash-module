@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# document https://github.com/powerpuffpenguin/bash_module/tree/main/document
+# api
+# * zh_Hant https://github.com/powerpuffpenguin/bash_module/tree/main/document/zh_Hant/README.md
 
 if [[ "$__module_flag_of_core" == 1 ]];then
     return 0
