@@ -5,8 +5,8 @@ if [[ "$__module_flag_of_core_colors" == 1 ]];then
 fi
 __module_flag_of_core_colors=1
 
-# func black(background:any=0)
-function core_colors.black
+# func Black(background:any=0)
+function core_colors.Black
 {
     if [[ "$1" == "" || "$1" == "0" ]];then
         echo -en "\e[30m"
@@ -14,8 +14,8 @@ function core_colors.black
         echo -en "\e[40m"
     fi
 }
-# func red(background:any=0)
-function core_colors.red
+# func Red(background:any=0)
+function core_colors.Red
 {
     if [[ "$1" == "" || "$1" == "0" ]];then
         echo -en "\e[31m"
@@ -23,8 +23,8 @@ function core_colors.red
         echo -en "\e[41m"
     fi
 }
-# func green(background:any=0)
-function core_colors.green
+# func Green(background:any=0)
+function core_colors.Green
 {
     if [[ "$1" == "" || "$1" == "0" ]];then
         echo -en "\e[32m"
@@ -32,8 +32,8 @@ function core_colors.green
         echo -en "\e[42m"
     fi
 }
-# func yellow(background:any=0)
-function core_colors.yellow
+# func Yellow(background:any=0)
+function core_colors.Yellow
 {
     if [[ "$1" == "" || "$1" == "0" ]];then
         echo -en "\e[33m"
@@ -41,8 +41,8 @@ function core_colors.yellow
         echo -en "\e[43m"
     fi
 }
-# func blue(background:any=0)
-function core_colors.blue
+# func Blue(background:any=0)
+function core_colors.Blue
 {
     if [[ "$1" == "" || "$1" == "0" ]];then
         echo -en "\e[34m"
@@ -50,8 +50,8 @@ function core_colors.blue
         echo -en "\e[44m"
     fi
 }
-# func magenta(background:any=0)
-function core_colors.magenta
+# func Magenta(background:any=0)
+function core_colors.Magenta
 {
     if [[ "$1" == "" || "$1" == "0" ]];then
         echo -en "\e[35m"
@@ -59,8 +59,8 @@ function core_colors.magenta
         echo -en "\e[45m"
     fi
 }
-# func cyan(background:any=0)
-function core_colors.cyan
+# func Cyan(background:any=0)
+function core_colors.Cyan
 {
     if [[ "$1" == "" || "$1" == "0" ]];then
         echo -en "\e[36m"
@@ -68,8 +68,8 @@ function core_colors.cyan
         echo -en "\e[46m"
     fi
 }
-# func light_gray(background:any=0)
-function core_colors.light_gray
+# func LightGray(background:any=0)
+function core_colors.LightGray
 {
     if [[ "$1" == "" || "$1" == "0" ]];then
         echo -en "\e[37m"
@@ -78,8 +78,8 @@ function core_colors.light_gray
     fi
 }
 
-# func dark_gray(background:any=0)
-function core_colors.dark_gray
+# func DarkGray(background:any=0)
+function core_colors.DarkGray
 {
     if [[ "$1" == "" || "$1" == "0" ]];then
         echo -en "\e[90m"
@@ -87,8 +87,8 @@ function core_colors.dark_gray
         echo -en "\e[100m"
     fi
 }
-# func light_red(background:any=0)
-function core_colors.light_red
+# func LightRed(background:any=0)
+function core_colors.LightRed
 {
     if [[ "$1" == "" || "$1" == "0" ]];then
         echo -en "\e[91m"
@@ -96,8 +96,8 @@ function core_colors.light_red
         echo -en "\e[101m"
     fi
 }
-# func light_green(background:any=0)
-function core_colors.light_green
+# func LightGreen(background:any=0)
+function core_colors.LightGreen
 {
     if [[ "$1" == "" || "$1" == "0" ]];then
         echo -en "\e[92m"
@@ -105,8 +105,8 @@ function core_colors.light_green
         echo -en "\e[102m"
     fi
 }
-# func light_yellow(background:any=0)
-function core_colors.light_yellow
+# func LightYellow(background:any=0)
+function core_colors.LightYellow
 {
     if [[ "$1" == "" || "$1" == "0" ]];then
         echo -en "\e[93m"
@@ -114,8 +114,8 @@ function core_colors.light_yellow
         echo -en "\e[103m"
     fi
 }
-# func light_blue(background:any=0)
-function core_colors.light_blue
+# func LightBlue(background:any=0)
+function core_colors.LightBlue
 {
     if [[ "$1" == "" || "$1" == "0" ]];then
         echo -en "\e[94m"
@@ -123,8 +123,8 @@ function core_colors.light_blue
         echo -en "\e[104m"
     fi
 }
-# func light_magenta(background:any=0)
-function core_colors.light_magenta
+# func LightMagenta(background:any=0)
+function core_colors.LightMagenta
 {
     if [[ "$1" == "" || "$1" == "0" ]];then
         echo -en "\e[95m"
@@ -132,8 +132,8 @@ function core_colors.light_magenta
         echo -en "\e[105m"
     fi
 }
-# func light_cyan(background:any=0)
-function core_colors.light_cyan
+# func LightCyan(background:any=0)
+function core_colors.LightCyan
 {
     if [[ "$1" == "" || "$1" == "0" ]];then
         echo -en "\e[96m"
@@ -141,8 +141,8 @@ function core_colors.light_cyan
         echo -en "\e[106m"
     fi
 }
-# func white(background:any=0)
-function core_colors.white
+# func White(background:any=0)
+function core_colors.White
 {
     if [[ "$1" == "" || "$1" == "0" ]];then
         echo -en "\e[97m"
@@ -150,8 +150,8 @@ function core_colors.white
         echo -en "\e[107m"
     fi
 }
-# func default(background:any=0)
-function core_colors.default
+# func Default(background:any=0)
+function core_colors.Default
 {
     if [[ "$1" == "" || "$1" == "0" ]];then
         echo -en "\e[39m"
@@ -159,8 +159,8 @@ function core_colors.default
         echo -en "\e[49m"
     fi
 }
-# func reset()
-function core_colors.reset
+# func Reset()
+function core_colors.Reset
 {
     echo -en "\e[0m"
 }

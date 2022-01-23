@@ -13,9 +13,9 @@ function core_strings.Ok
 {
     echo -n "$core_strings_Ok"
 }
-# func start_with(str: string, sub: string): 1 or 0
+# func StartWith(str: string, sub: string): 1 or 0
 # return to core_strings_Ok
-function core_strings.start_with
+function core_strings.StartWith
 {
     declare -i l0=${#1}
     declare -i l1=${#2}
@@ -31,9 +31,9 @@ function core_strings.start_with
         core_strings_Ok=0
     fi
 }
-# func start_with(str: string, sub: string): 1 or 0
+# func EndWith(str: string, sub: string): 1 or 0
 # return to core_strings_Ok
-function core_strings.end_with
+function core_strings.EndWith
 {
     declare -i l0=${#1}
     declare -i l1=${#2}
@@ -53,12 +53,12 @@ function core_strings.end_with
 core_strings_Strings=()
 function core_strings.Strings
 {
-    core.copy "$1" core_strings_Strings
+    core.Copy "$1" core_strings_Strings
 }
 
-# func split(str: string, separator: string=" "): []string
+# func Split(str: string, separator: string=" "): []string
 # return to core_strings_Strings
-function core_strings.split
+function core_strings.Split
 {
     core_strings_Strings=()
     local str="$1"
@@ -82,10 +82,10 @@ function core_strings.split
         str=${str:length}
     done
 }
-# func join(arrname: string, separator: string=" "): string
-function core_strings.join
+# func Join(arrname: string, separator: string=" "): string
+function core_strings.Join
 {
-    core.copy core_strings_Strings "$1"
+    core.Copy core_strings_Strings "$1"
     local result=$?
     if [[ "$result" != 0 ]];then
         return $result
@@ -101,8 +101,8 @@ function core_strings.join
     fi
    done
 }
-# func trim_left(str: string, sub: string): string
-function core_strings.trim_left
+# func TrimLeft(str: string, sub: string): string
+function core_strings.TrimLeft
 {
     local str="$1"
     local sep="$2"
@@ -120,8 +120,8 @@ function core_strings.trim_left
         fi
     done
 }
-# func trim_right(str: string, sub: string): string
-function core_strings.trim_right
+# func TrimRight(str: string, sub: string): string
+function core_strings.TrimRight
 {
     local str="$1"
     local sep="$2"
@@ -139,9 +139,9 @@ function core_strings.trim_right
         fi
     done
 }
-# func trim(str: string, sub: string): string
-function core_strings.trim
+# func Trim(str: string, sub: string): string
+function core_strings.Trim
 {
-    local str=`core_strings.trim_left "$1" "$2"`
-    core_strings.trim_right "$str" "$2"
+    local str=`core_strings.TrimLeft "$1" "$2"`
+    core_strings.TrimRight "$str" "$2"
 }

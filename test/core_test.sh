@@ -6,7 +6,7 @@ source core.sh
 function test_import
 {
     echo "   - test_import"
-    core.import "core/a.sh"
+    core.Import "core/a.sh"
     local a="a"
     local b="a_b"
 
@@ -30,7 +30,7 @@ function test_copy
         "def"
     )
     local b
-    core.copy b a
+    core.Copy b a
     if [[ ${#a} != ${#b} ]];then
         echo' len(a) != len(b)'
         return 1
@@ -52,19 +52,19 @@ function test_zoo
 {
     echo "   - test_zoo"
     # import
-    core.import "core/zoo.sh"
+    core.Import "core/zoo.sh"
     local zoo="core_zoo"
     local Cat="core_zoo_Cat"
 
     # s0 = new Cat
     local s0
     $Cat.new "ka te" 1
-    core.copy s0 $Cat
+    core.Copy s0 $Cat
 
     # s1 = new Cat
     local s1
     $Cat.new anita 99
-    core.copy s1 $Cat
+    core.Copy s1 $Cat
 
     # s0.speak
     if [[ `$Cat.speak s0` != "i'm ka te, a cat. my level is 1." ]];then
@@ -80,7 +80,7 @@ function test_zoo
 
     # clone
     local a
-    core.copy a s0
+    core.Copy a s0
     local name=`$Cat.name a`
     if [[ $name != "ka te" ]];then
         echo '$Cat.name get not match'

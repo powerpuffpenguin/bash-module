@@ -3,9 +3,8 @@ set -e
 echo " * $BASH_SOURCE"
 source core.sh
 
-core.import "core:strings.sh"
+core.Import "core:strings.sh"
 strings="core_strings"
-Files="core_strings_Files"
 
 function test_strings.Ok
 {
@@ -45,115 +44,115 @@ function test_strings.Strings
 }
 test_strings.Strings
 
-function test_strings.start_with
+function test_strings.StartWith
 {
-    echo "   - test_strings.start_with"
+    echo "   - test_strings.StartWith"
     local str="cerberus is an idea"
     local sub="cerberus i "
-    $strings.start_with "$str" "$sub"
+    $strings.StartWith "$str" "$sub"
     if [[ $core_strings_Ok == 1 ]];then
-        echo "start_with true"
+        echo "StartWith true"
         echo "str=\"$str\""
         echo "sub=\"$sub\""
         return 1
     fi
 
     sub="cerberus i"
-    $strings.start_with "$str" "$sub"
+    $strings.StartWith "$str" "$sub"
     if [[ $core_strings_Ok == 0 ]];then
-        echo "start_with false"
+        echo "StartWith false"
         echo "str=\"$str\""
         echo "sub=\"$sub\""
         return 1
     fi
 
     sub="cerberus"
-    $strings.start_with "$str" "$sub"
+    $strings.StartWith "$str" "$sub"
     if [[ $core_strings_Ok == 0 ]];then
-        echo "start_with false"
+        echo "StartWith false"
         echo "str=\"$str\""
         echo "sub=\"$sub\""
         return 1
     fi
 
     sub="cerberus "
-    $strings.start_with "$str" "$sub"
+    $strings.StartWith "$str" "$sub"
     if [[ $core_strings_Ok == 0 ]];then
-        echo "start_with false"
+        echo "StartWith false"
         echo "str=\"$str\""
         echo "sub=\"$sub\""
         return 1
     fi
 
     sub="cerberus  "
-    $strings.start_with "$str" "$sub"
+    $strings.StartWith "$str" "$sub"
     if [[ $core_strings_Ok == 1 ]];then
-        echo "start_with true"
+        echo "StartWith true"
         echo "str=\"$str\""
         echo "sub=\"$sub\""
         return 1
     fi
 }
-test_strings.start_with
+test_strings.StartWith
 
-function test_strings.end_with
+function test_strings.EndWith
 {
-    echo "   - test_strings.end_with"
+    echo "   - test_strings.EndWith"
     local str="cerberus is an idea"
     local sub=" n idea"
-    $strings.end_with "$str" "$sub"
+    $strings.EndWith "$str" "$sub"
     if [[ $core_strings_Ok == 1 ]];then
-        echo "end_with true"
+        echo "EndWith true"
         echo "str=\"$str\""
         echo "sub=\"$sub\""
         return 1
     fi
 
     sub=" n idea"
-    $strings.end_with "$str" "$sub"
-    if [[ $end_with == 0 ]];then
-        echo "end_with false"
+    $strings.EndWith "$str" "$sub"
+    if [[ $EndWith == 0 ]];then
+        echo "EndWith false"
         echo "str=\"$str\""
         echo "sub=\"$sub\""
         return 1
     fi
 
     sub="idea"
-    $strings.end_with "$str" "$sub"
+    $strings.EndWith "$str" "$sub"
     if [[ $core_strings_Ok == 0 ]];then
-        echo "end_with false"
+        echo "EndWith false"
         echo "str=\"$str\""
         echo "sub=\"$sub\""
         return 1
     fi
 
     sub=" idea"
-    $strings.end_with "$str" "$sub"
+    $strings.EndWith "$str" "$sub"
     if [[ $core_strings_Ok == 0 ]];then
-        echo "end_with false"
+        echo "EndWith false"
         echo "str=\"$str\""
         echo "sub=\"$sub\""
         return 1
     fi
 
     sub="  idea"
-    $strings.end_with "$str" "$sub"
+    $strings.EndWith "$str" "$sub"
     if [[ $core_strings_Ok == 1 ]];then
-        echo "end_with true"
+        echo "EndWith true"
         echo "str=\"$str\""
         echo "sub=\"$sub\""
         return 1
     fi
 }
-test_strings.end_with
+test_strings.EndWith
 
-function test_strings.split
+function test_strings.Split
 {
-    echo "   - test_strings.split"
+    echo "   - test_strings.Split"
     local str=",,,a,b,,cd,,ef"
-    $strings.split "$str" ",,"
+    $strings.Split "$str" ",,"
     if [[ ${#core_strings_Strings[@]} != 4 ]];then
-        echo split str not equal 4
+        echo Split str not equal 4
         return 1
     fi
     local s0=${core_strings_Strings[0]}
@@ -161,7 +160,7 @@ function test_strings.split
     local s2=${core_strings_Strings[2]} 
     local s3=${core_strings_Strings[3]} 
     if [[ "$s0" != "" || "$s1" != ",a,b" || "$s2" != "cd"  || "$s3" != "ef" ]];then
-        echo split 4 not match
+        echo Split 4 not match
         echo s0="\"$s0\""
         echo s1="\"$s1\""
         echo s2="\"$s2\""
@@ -170,16 +169,16 @@ function test_strings.split
     fi
 
     local str="a b c"
-    $strings.split "$str"
+    $strings.Split "$str"
     if [[ ${#core_strings_Strings[@]} != 3 ]];then
-        echo split str not equal 3
+        echo Split str not equal 3
         return 1
     fi
     local s0=${core_strings_Strings[0]}
     local s1=${core_strings_Strings[1]} 
     local s2=${core_strings_Strings[2]} 
     if [[ "$s0" != "a" || "$s1" != "b" || "$s2" != "c" ]];then
-        echo split 4 not match
+        echo Split 4 not match
         echo s0="\"$s0\""
         echo s1="\"$s1\""
         echo s2="\"$s2\""
@@ -187,14 +186,14 @@ function test_strings.split
     fi
 
 }
-test_strings.split
+test_strings.Split
 
 function test_strings.find_files
 {
     echo "   - test_strings.find_files"
     local dir=$(cd $(dirname $BASH_SOURCE) && pwd)
     local str=`find "$dir" -maxdepth 1 -name "*.ff" -type f`
-    $strings.split "$str" "
+    $strings.Split "$str" "
 "
     if [[ ${#core_strings_Strings[@]} != 2 ]];then
         echo find files not equal 2
@@ -204,18 +203,18 @@ function test_strings.find_files
     local s1=${core_strings_Strings[1]}
 
 
-    $strings.end_with "$s0" "/a b.ff"
+    $strings.EndWith "$s0" "/a b.ff"
     if [[ $core_strings_Ok == 0 ]];then
         local tmp=$s0
         s0=$s1
         s1=$tmp
-        $strings.end_with "$s0" "/a b.ff"
+        $strings.EndWith "$s0" "/a b.ff"
     fi
     if [[ $core_strings_Ok == 0 ]];then
         echo "not found a b.ff"
         return 1
     fi
-    $strings.end_with "$s1" "/c.ff"
+    $strings.EndWith "$s1" "/c.ff"
     if [[ $core_strings_Ok == 0 ]];then
         echo "not found c.ff"
         return 1
@@ -223,41 +222,41 @@ function test_strings.find_files
 }
 test_strings.find_files
 
-function test_strings.join
+function test_strings.Join
 {
-    echo "   - test_strings.join"
+    echo "   - test_strings.Join"
     local strs=(a b c)
-    local str=`$strings.join strs ","`
+    local str=`$strings.Join strs ","`
     if [[ "$str" != "a,b,c" ]];then
-        echo "join not equal"
+        echo "Join not equal"
         echo "strs=a,b,c"
         echo "str=$str"
         return 1
     fi
 }
-test_strings.join
+test_strings.Join
 
-function test_strings.trim
+function test_strings.Trim
 {
-    echo "   - test_strings.trim"
+    echo "   - test_strings.Trim"
     local s0="xxabcdexx"
 
-    local s1=`$strings.trim_left "$s0" "x"`
+    local s1=`$strings.TrimLeft "$s0" "x"`
     if [[ "$s1" != "abcdexx" ]];then
-        echo trim_left not pass
+        echo TrimLeft not pass
         return 1
     fi
 
-    local s2=`$strings.trim_right "$s0" "x"`
+    local s2=`$strings.TrimRight "$s0" "x"`
     if [[ "$s2" != "xxabcde" ]];then
-        echo trim_right not pass
+        echo TrimRight not pass
         return 1
     fi
    
-   local s3=`$strings.trim "$s0" "x"`
+   local s3=`$strings.Trim "$s0" "x"`
    if [[ "$s3" != "abcde" ]];then
-        echo trim not pass
+        echo Trim not pass
         return 1
     fi
 }
-test_strings.trim
+test_strings.Trim

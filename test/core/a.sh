@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-core.import b.sh
+core.Import b.sh
 
 function a.echo
 {
