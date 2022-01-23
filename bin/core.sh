@@ -7,6 +7,13 @@ fi
 __module_flag_of_core=1
 
 core_Version="v0.0.1"
+# return current version
+#
+# func version(): string
+function core.version
+{
+    echo -n "$core_Version"
+}
 
 # import a module
 #
@@ -23,7 +30,7 @@ function core.import
     declare -i length=${#1}
     if [[ length > 5 && "${1::5}" == "core:"  ]];then
         local dir=$(cd $(dirname $BASH_SOURCE) && pwd)
-        local path="$dir/lib/${1:5}"
+        local path="$dir/core.libs/${1:5}"
         core._import "$path" "$1"
         return $?
     fi
