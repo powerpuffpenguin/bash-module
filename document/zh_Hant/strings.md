@@ -1,15 +1,15 @@
 # strings
 
-[api](README.md)
+[API](README.md)
 
 常見的字符串處理
 
-導入代碼
+導入代碼：
 ```
 core.Import "core:strings.sh"
 ```
 
-名稱前綴
+名稱前綴：
 ```
 strings="core_strings"
 ```
@@ -19,9 +19,8 @@ strings="core_strings"
 * [Strings](#core_strings_Strings)
 
 函數列表：
-
 * [Ok](#Ok)
-* [Strings](#Strings)
+* [Strings](#func_Strings)
 * [StartWith](#StartWith)
 * [EndWith](#EndWith)
 * [Split](#Split)
@@ -62,7 +61,7 @@ else
 fi
 ```
 
-# Strings
+# func_Strings
 
 Strings 函數將調用 `Copy "$1" core_strings_Strings`，這將使用 eval 特性將 core_strings_Strings 的值拷貝到 $1 指定的變量中
 

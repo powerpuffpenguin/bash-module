@@ -5,7 +5,7 @@
 
 # core
 
-導入代碼
+導入代碼：
 ```
 source core.sh
 ```
@@ -112,16 +112,16 @@ function Field
 
 # Error
 
-Error 實際上是 `echo "$@" 1>&2` 的語法糖，使用方法和 echo 一樣，它只將 使用 stderror 而非 stdout 來輸出
+Error 實際上是 `echo "$@" 1>&2` 的語法糖，使用方法和 echo 一樣，它只將 使用 stderr 而非 stdout 來輸出
 
-bash 中的函數如果要返回字符串需要使用 stdout，所以最好將錯誤輸出到 stderror 這樣就避免的 錯誤輸出 和 返回輸出 都交錯在 stdout 中
+bash 中的函數如果要返回字符串需要使用 stdout，所以最好將錯誤輸出到 stderr 這樣就避免的 錯誤輸出 和 返回輸出 都交錯在 stdout 中
 
 ```
 core.Error "Error: an error occurred"
 ```
 # ErrorStack
 
-ErrorStack 將當前的調用棧打印到 stderror，此外 ErrorStack 的第一個參數可以指定要跳過多少層棧信息 
+ErrorStack 將當前的調用棧打印到 stderr，此外 ErrorStack 的第一個參數可以指定要跳過多少層棧信息 
 
 ```
 core.ErrorStack

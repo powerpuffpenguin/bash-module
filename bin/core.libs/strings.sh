@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # api
+# * english https://github.com/powerpuffpenguin/bash_module/tree/main/document/en/strings.md
 # * zh_Hant https://github.com/powerpuffpenguin/bash_module/tree/main/document/zh_Hant/strings.md
 
 if [[ "$__module_flag_of_core_strings" == 1 ]];then
