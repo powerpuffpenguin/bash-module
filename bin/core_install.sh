@@ -13,11 +13,26 @@ function mainHelp
     echo "  $Command [flags]"
     echo "  $Command [command]"
     echo
-    echo
     echo "Flags:"
-    echo "  -t, --test          test install but won't actually install to hard drive"
+    echo "  -t, --test          test install but won't actually install to hard disk"
     echo "  -o, --output        install dir (default \"/usr/bin\")"
     echo "  -v, --version       install version tag (default \"latest\")"
+    echo "  -y, --yes           automatic yes to prompts"
+    echo "  -n, --no            automatic no to prompts"
+    echo "      --no-sum        don't validate archive hash"
+    echo "  -h, --help          help for $Command"
+}
+function mainUpgradeHelp
+{
+    echo "upgrade core.sh"
+    echo
+    echo "Usage:"
+    echo "  $Command [flags]"
+    echo "  $Command [command]"
+    echo
+    echo "Flags:"
+    echo "  -t, --test          test upgrade but won't actually upgrade to hard disk"
+    echo "  -v, --version       upgrade version tag (default \"latest\")"
     echo "  -y, --yes           automatic yes to prompts"
     echo "  -n, --no            automatic no to prompts"
     echo "      --no-sum        don't validate archive hash"
@@ -282,6 +297,70 @@ function input.GetYes
         fi
     done
 }
+function mainUpgrade
+{
+    ARGS=`getopt -o hto:v:y,n --long help,test,output:,version:,no-sum,yes,no -n "$Command" -- "$@"`
+    eval set -- "${ARGS}"
+    local version="latest"
+    local output="/usr/bin"
+    local test=0
+    local noSUM=0
+    local yesAll=0
+    local noAll=0
+    while true
+    do
+        case "$1" in
+            -h|--help)
+                mainUpgradeHelp
+                return 0
+            ;;
+            -t|--test)
+                test=1
+                shift
+            ;;
+            -y|--yes)
+                yesAll=1
+                shift
+            ;;
+            -n|--no)
+                noAll=1
+                shift
+            ;;
+            --no-sum)
+                noSUM=1
+                shift
+            ;;
+            -o|--output)
+                if [[ ! -d "$2" ]];then
+                    echo "output dir not exists: $2"
+                    return 1
+                fi
+                output=$(cd "$2" && pwd)
+                shift 2
+            ;;
+            -v|--version)
+                if [[ "$2" == "latest" ]];then
+                    version=latest
+                else
+                    version="$2"
+                fi
+                shift 2
+            ;;
+            --)
+                shift
+                break
+            ;;
+            *)
+                echo Error: unknown flag "$1" for "$Command"
+                echo "Run '$Command --help' for usage."
+                return 1
+            ;;
+        esac
+    done
+
+    # get version
+    github.Version "$version" "$noSUM"
+}
 function mainInstall
 {
     ARGS=`getopt -o hto:v:y,n --long help,test,output:,version:,no-sum,yes,no -n "$Command" -- "$@"`
@@ -433,11 +512,80 @@ function mainInstall
         fi
     fi
     echo tar -zxvf "$DownloadName" -C "$output"
-    tar -zxvf "$DownloadName" -C "$output"
+    if [[ $test == 0 ]];then
+        tar -zxvf "$DownloadName" -C "$output"
+    fi
     rm "$DownloadName"
     echo $success
 }
-
+function mainRemoveHelp
+{
+     echo "remove core.sh"
+    echo
+    echo "Usage:"
+    echo "  $Command [flags]"
+    echo "  $Command [command]"
+    echo
+    echo "Flags:"
+    echo "  -t, --test          test remove but won't actually remove from hard disk"
+    echo "  -h, --help          help for $Command"
+}
+function mainRemove
+{
+    local test=0
+    ARGS=`getopt -oth --long help,test -n "$Command" -- "$@"`
+    eval set -- "${ARGS}"
+    while true
+    do
+        case "$1" in
+            -h|--help)
+                mainRemoveHelp
+                return 0
+            ;;
+            -t|--test)
+                test=1
+                shift
+            ;;
+            --)
+                shift
+                break
+            ;;
+            *)
+                echo Error: unknown flag "$1" for "$Command"
+                echo "Run '$Command --help' for usage."
+                return 1
+            ;;
+        esac
+    done
+    local dir=$(cd $(dirname $BASH_SOURCE) && pwd)
+    local files=(
+        core.sh
+        core.libs/colors.sh
+        core.libs/strings.sh
+        core.libs
+        abc
+    )
+    local file
+    for file in "${files[@]}"
+    do
+        file="$dir/$file"
+        if [[ "$file" == *.sh ]];then
+            if [[ -f "$file" ]];then
+                echo rm "$file"
+                if [[ $test == 0 ]];then
+                    rm "$file"
+                fi
+            fi
+        elif [[ -d "$file" ]];then
+            if [[ "$(find "$file")" == "$file" ]];then
+                echo rmdir $file
+                 if [[ $test == 0 ]];then
+                    rmdir "$file"
+                fi
+            fi
+        fi
+    done
+}
 function displayHelp
 {
     Command="core_install.sh"
@@ -449,6 +597,8 @@ function displayHelp
     echo
     echo "Available Commands:"
     echo "  install           install core.sh"
+    echo "  upgrade           upgrade core.sh"
+    echo "  remove            remove  core.sh"
     echo "  help              help for $Command"
     echo
     echo "Flags:"
@@ -460,10 +610,22 @@ case "$1" in
         displayHelp
         exit 0
     ;;
+    remove)
+        shift 1
+        Command="core_install.sh remove"
+        mainRemove "$@"
+        exit $?
+    ;;
     install)
         shift 1
         Command="core_install.sh install"
         mainInstall "$@"
+        exit $?
+    ;;
+    upgrade)
+        shift 1
+        Command="core_install.sh upgrade"
+        mainUpgrade "$@"
         exit $?
     ;;
 esac
