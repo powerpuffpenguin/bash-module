@@ -7,7 +7,7 @@ DownloadName="core.tar.gz"
 # TestURL="http://192.168.251.50/tools"
 function mainHelp
 {
-    echo "core.sh install script"
+    echo "install core.sh"
     echo
     echo "Usage:"
     echo "  $Command [flags]"
@@ -437,5 +437,35 @@ function mainInstall
     rm "$DownloadName"
     echo $success
 }
-mainInstall "$@"
-exit $?
+
+function displayHelp
+{
+    Command="core_install.sh"
+    echo "install core.sh"
+    echo
+    echo "Usage:"
+    echo "  $Command [flags]"
+    echo "  $Command [command]"
+    echo
+    echo "Available Commands:"
+    echo "  install           install core.sh"
+    echo "  help              help for $Command"
+    echo
+    echo "Flags:"
+    echo "  -h, --help          help for $Command"
+}
+
+case "$1" in
+    -h|--help)
+        displayHelp
+        exit 0
+    ;;
+    install)
+        shift 1
+        Command="core_install.sh install"
+        mainInstall "$@"
+        exit $?
+    ;;
+esac
+displayHelp
+exit 1

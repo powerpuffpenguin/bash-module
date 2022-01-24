@@ -43,6 +43,6 @@ sudo docker run \
     --name test-bash-install \
     --network host \
     --rm \
-    -v "$Dir/install.sh":/install.sh:ro \
+    -v "$Dir/bin/core_install.sh":/install.sh:ro \
     -it king011/development:18.04 \
     bash
