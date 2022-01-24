@@ -4,7 +4,7 @@ set -e
 Command="install.sh"
 BaseURL="https://api.github.com/repos/powerpuffpenguin/bash_module"
 DownloadName="core.tar.gz"
-TestURL="http://192.168.251.50/tools"
+# TestURL="http://192.168.251.50/tools"
 function mainHelp
 {
     echo "core.sh install script"
@@ -415,10 +415,10 @@ function mainInstall
         hash=$(compare.Hash "$hash")
     fi
 
-    # # download
-    # local url=$github_Download
-    # echo curl -#Lo "$DownloadName" "$url"
-    # curl -#Lo "$DownloadName" "$url"
+    # download
+    local url=$github_Download
+    echo curl -#Lo "$DownloadName" "$url"
+    curl -#Lo "$DownloadName" "$url"
 
     # check hash
     if [[ "$hash" != "" ]];then
@@ -434,7 +434,7 @@ function mainInstall
     fi
     echo tar -zxvf "$DownloadName" -C "$output"
     tar -zxvf "$DownloadName" -C "$output"
-    # rm "$DownloadName"
+    rm "$DownloadName"
     echo $success
 }
 mainInstall "$@"

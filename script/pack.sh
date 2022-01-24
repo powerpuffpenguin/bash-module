@@ -85,7 +85,8 @@ if [[ -f "$name" ]];then
     rm "$name"
 fi
 source=(
-    core.sh core.libs
+    core.sh core.libs 
+    core_install.sh
 )
 
 exec="${args[@]} ${source[@]}"
