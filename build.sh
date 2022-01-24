@@ -20,6 +20,7 @@ function help(){
     echo "  pack              pack release"
     echo "  color             run color"
     echo "  test              run test"
+    echo "  install           install test"
     echo
     echo "Flags:"
     echo "  -h, --help          help for $0"
@@ -43,6 +44,11 @@ case "$1" in
         shift
         export Command="$0 test"
         "$BashDir/script/test.sh" "$@"
+    ;;
+    install)
+        shift
+        export Command="$0 install"
+        "$BashDir/script/install.sh" "$@"
     ;;
     *)
         if [[ "$1" == "" ]];then

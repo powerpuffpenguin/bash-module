@@ -8,7 +8,7 @@ if [[ "$__module_flag_of_core" == 1 ]];then
 fi
 __module_flag_of_core=1
 
-core_Version="v0.1.0"
+core_Version="v0.1.1"
 # return current version
 #
 # func Version(): string
